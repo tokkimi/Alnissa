@@ -1,0 +1,178 @@
+// ───────────────────────────────────────────────────────────────
+//  Association Al Nissa — schéma de base de données (Prisma)
+//
+//  Base par défaut : SQLite (aucune configuration, fonctionne tout de suite).
+//  Pour la PRODUCTION (Vercel, Neon, Railway…) : remplacez
+//      provider = "sqlite"   ->   provider = "postgresql"
+//  et mettez une URL PostgreSQL dans DATABASE_URL. Voir DEPLOYMENT.md.
+// ───────────────────────────────────────────────────────────────
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+/// Comptes ayant accès à l'espace d'administration.
+model AdminUser {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  name         String    @default("Administration")
+  role         String    @default("admin") // admin | editor
+  lastLoginAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+/// Donateurs : particuliers ou entreprises.
+model Donor {
+  id           String     @id @default(cuid())
+  firstName    String
+  lastName     String
+  email        String?
+  phone        String?
+  address      String?
+  postalCode   String?
+  city         String?
+  country      String     @default("France")
+  type         String     @default("INDIVIDUAL") // INDIVIDUAL | COMPANY
+  organization String?
+  tags         String     @default("") // étiquettes séparées par des virgules
+  notes        String?
+  consentEmail Boolean    @default(false)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  donations    Donation[]
+
+  @@index([lastName])
+  @@index([email])
+}
+
+/// Campagnes / projets de collecte (Maraudes, Colis, Aînés…).
+model Campaign {
+  id          String     @id @default(cuid())
+  name        String
+  slug        String     @unique
+  description String?
+  goalAmount  Float      @default(0)
+  color       String     @default("#e79aa8")
+  icon        String     @default("heart")
+  startDate   DateTime?
+  endDate     DateTime?
+  isActive    Boolean    @default(true)
+  sortOrder   Int        @default(0)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  donations   Donation[]
+}
+
+/// Dons enregistrés (avec suivi du reçu fiscal).
+model Donation {
+  id            String    @id @default(cuid())
+  donorId       String?
+  donor         Donor?    @relation(fields: [donorId], references: [id], onDelete: SetNull)
+  campaignId    String?
+  campaign      Campaign? @relation(fields: [campaignId], references: [id], onDelete: SetNull)
+  amount        Float
+  currency      String    @default("EUR")
+  date          DateTime  @default(now())
+  method        String    @default("BANK_TRANSFER") // BANK_TRANSFER | CARD | CASH | CHECK | HELLOASSO | PAYPAL | OTHER
+  status        String    @default("RECEIVED") // PENDING | RECEIVED | REFUNDED
+  isRecurring   Boolean   @default(false)
+  frequency     String? // MONTHLY | QUARTERLY | YEARLY
+  reference     String?
+  message       String?
+  anonymous     Boolean   @default(false)
+  receiptIssued Boolean   @default(false) // reçu fiscal émis ?
+  receiptNumber String?
+  receiptDate   DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([date])
+  @@index([donorId])
+  @@index([status])
+}
+
+/// Messagerie interne : messages reçus via la bulle de contact / le formulaire.
+model Message {
+  id        String    @id @default(cuid())
+  name      String
+  email     String?
+  phone     String?
+  subject   String    @default("Message via le site")
+  body      String
+  channel   String    @default("BUBBLE") // BUBBLE | CONTACT | EMAIL
+  status    String    @default("NEW") // NEW | READ | REPLIED | ARCHIVED
+  isStarred Boolean   @default(false)
+  adminNote String?
+  createdAt DateTime  @default(now())
+  readAt    DateTime?
+
+  @@index([status])
+  @@index([createdAt])
+}
+
+/// Bénévoles et candidatures au bénévolat.
+model Volunteer {
+  id           String   @id @default(cuid())
+  firstName    String
+  lastName     String
+  email        String?
+  phone        String?
+  city         String?
+  availability String?
+  skills       String   @default("")
+  motivation   String?
+  status       String   @default("NEW") // NEW | CONTACTED | ACTIVE | INACTIVE
+  notes        String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+/// Planning et événements (maraudes, distributions, visites…).
+model EventItem {
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  type        String    @default("MARAUDE") // MARAUDE | DISTRIBUTION | VISITE | COLLECTE | EVENT
+  recurrence  String    @default("WEEKLY") // WEEKLY | MONTHLY | ONCE
+  dayOfWeek   String? // ex. "Dimanche"
+  time        String? // ex. "09:00"
+  location    String?
+  date        DateTime?
+  isPublished Boolean   @default(true)
+  sortOrder   Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+/// Inscrits à la lettre d'information / appel aux dons.
+model Subscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
+
+/// Contenu éditable du site (clé/valeur, valeur = texte ou JSON).
+model Setting {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+}
+
+/// Journal d'activité de l'espace d'administration.
+model ActivityLog {
+  id        String   @id @default(cuid())
+  action    String
+  entity    String
+  entityId  String?
+  detail    String?
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
