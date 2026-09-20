@@ -3,6 +3,7 @@ import StatsSection from "../components/StatsSection";
 import ValuesSection from "../components/ValuesSection";
 import ActionsSection from "../components/ActionsSection";
 import PlanningSection from "../components/PlanningSection";
+import GallerySection from "../components/GallerySection";
 import DonateBand from "../components/DonateBand";
 import CommerceBand from "../components/CommerceBand";
 import InstagramCTA from "../components/InstagramCTA";
@@ -16,6 +17,7 @@ export default async function HomePage() {
       <StatsSection content={content} />
       <ValuesSection content={content} />
       <ActionsSection content={content} />
+      <GallerySection content={content} />
       <PlanningSection />
       <CommerceBand />
       <DonateBand content={content} />

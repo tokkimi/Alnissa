@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import PageHeader from "../../components/PageHeader";
 import ActionsSection from "../../components/ActionsSection";
 import PlanningSection from "../../components/PlanningSection";
+import GallerySection from "../../components/GallerySection";
 import ValuesSection from "../../components/ValuesSection";
 import DonateBand from "../../components/DonateBand";
 import { getSiteContent } from "@/lib/settings";
@@ -23,6 +24,7 @@ export default async function NosActionsPage() {
         icon="handHeart"
       />
       <ActionsSection content={content} />
+      <GallerySection content={content} />
       <PlanningSection />
       <ValuesSection content={content} />
       <DonateBand content={content} />

@@ -99,6 +99,10 @@ export interface SiteContent {
     messagingSubtitle: string;
     soundLabel: string;
   };
+  media: {
+    aboutImage: string;
+    gallery: { url: string; caption: string }[];
+  };
   legal: {
     associationName: string;
     rna: string;
@@ -244,6 +248,13 @@ export const defaultContent: SiteContent = {
     messagingTitle: "Messagerie",
     messagingSubtitle: "Écrivez-nous directement ici",
     soundLabel: "Ambiance sonore",
+  },
+  media: {
+    // Image d'illustration (à remplacer par une vraie photo de l'association).
+    aboutImage:
+      "https://d8j0ntlcm91z4.cloudfront.net/user_3F9wA9jXR3Qq0lvAulqOGTtJmKs/hf_20260920_093804_de8b8997-4a44-4f4e-83e4-b57a1b731b5d.png",
+    // Galerie « En images » : ajoutez ici les URL de vos photos + une légende.
+    gallery: [],
   },
   legal: {
     associationName: "Association Al Nissa",

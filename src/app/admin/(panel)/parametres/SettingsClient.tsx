@@ -18,6 +18,7 @@ const TABS = [
   { key: "about", label: "À propos", icon: "hands" },
   { key: "stats", label: "Chiffres", icon: "trend" },
   { key: "actions", label: "Nos actions", icon: "handHeart" },
+  { key: "media", label: "Photos", icon: "star" },
   { key: "donation", label: "Dons / RIB", icon: "bank" },
   { key: "contact", label: "Contact", icon: "mail" },
   { key: "socials", label: "Réseaux", icon: "instagram" },
@@ -226,6 +227,50 @@ export default function SettingsClient({
               </div>
             ))}
             <button onClick={() => update((d) => { d.actions.items.push({ icon: "heart", title: "", description: "" }); })} className="btn btn-glass text-sm"><Icon name="plus" width={16} height={16} /> Ajouter une action</button>
+          </div>
+        </div>
+      )}
+
+      {/* MEDIA / PHOTOS */}
+      {tab === "media" && (
+        <div className="space-y-4">
+          <div className="glass-card space-y-3 p-6">
+            <h3 className="font-display text-xl text-plum">Photo « À propos »</h3>
+            <p className="text-sm text-plum/70">
+              Grande photo affichée dans la section « Qui sommes-nous » de l'accueil. Collez le
+              lien (URL) d'une image, idéalement une vraie photo de l'association.
+            </p>
+            <Field label="URL de l'image" value={content.media.aboutImage} onChange={(v) => update((d) => { d.media.aboutImage = v; })} placeholder="https://…" />
+            {content.media.aboutImage && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={content.media.aboutImage} alt="Aperçu" className="mt-2 h-40 w-full rounded-xl object-cover" />
+            )}
+          </div>
+
+          <div className="glass-card space-y-3 p-6">
+            <h3 className="font-display text-xl text-plum">Galerie « En images »</h3>
+            <p className="text-sm text-plum/70">
+              Ajoutez les photos à afficher dans la galerie (accueil & page « Nos actions »).
+              La galerie n'apparaît que si au moins une photo est ajoutée.
+            </p>
+            {content.media.gallery.map((img, i) => (
+              <div key={i} className="grid grid-cols-1 gap-2 rounded-2xl bg-white/60 p-3 sm:grid-cols-[6rem_1fr_1fr_auto] sm:items-center">
+                {img.url ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={img.url} alt="" className="h-16 w-full rounded-lg object-cover sm:w-24" />
+                ) : (
+                  <div className="grid h-16 w-full place-items-center rounded-lg bg-rose-100 text-rose-400 sm:w-24"><Icon name="star" width={20} height={20} /></div>
+                )}
+                <input className="field" value={img.url} onChange={(e) => update((d) => { d.media.gallery[i].url = e.target.value; })} placeholder="URL de la photo" />
+                <input className="field" value={img.caption} onChange={(e) => update((d) => { d.media.gallery[i].caption = e.target.value; })} placeholder="Légende (facultatif)" />
+                <button onClick={() => update((d) => { d.media.gallery.splice(i, 1); })} className="grid h-9 w-9 shrink-0 place-items-center justify-self-end rounded-full text-rose-600 hover:bg-rose-100"><Icon name="trash" width={16} height={16} /></button>
+              </div>
+            ))}
+            <button onClick={() => update((d) => { d.media.gallery.push({ url: "", caption: "" }); })} className="btn btn-glass text-sm"><Icon name="plus" width={16} height={16} /> Ajouter une photo</button>
+            <p className="rounded-2xl bg-rose-50/70 p-3 text-xs text-plum/70">
+              💡 Astuce : vous pouvez aussi envoyer vos photos à l'équipe qui gère le site pour
+              qu'elles soient intégrées directement.
+            </p>
           </div>
         </div>
       )}
