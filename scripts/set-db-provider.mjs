@@ -10,7 +10,11 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const url = process.env.DATABASE_URL || "";
+const url =
+  process.env.DATABASE_URL ||
+  process.env.POSTGRES_PRISMA_URL ||
+  process.env.POSTGRES_URL ||
+  "";
 let provider = "sqlite";
 if (/^postgres(ql)?:\/\//i.test(url)) provider = "postgresql";
 else if (/^mysql:\/\//i.test(url)) provider = "mysql";

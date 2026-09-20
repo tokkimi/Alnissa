@@ -11,8 +11,19 @@
  */
 import { execSync } from "node:child_process";
 
-const url = process.env.DATABASE_URL || "";
-const isRemote = /^(postgres(ql)?|mysql):\/\//i.test(url);
+const runtimeUrl =
+  process.env.DATABASE_URL ||
+  process.env.POSTGRES_PRISMA_URL ||
+  process.env.POSTGRES_URL ||
+  "";
+
+// Pour la création des tables, on privilégie une connexion directe (non poolée).
+const pushUrl =
+  process.env.POSTGRES_URL_NON_POOLING ||
+  process.env.DATABASE_URL_UNPOOLED ||
+  runtimeUrl;
+
+const isRemote = /^(postgres(ql)?|mysql):\/\//i.test(runtimeUrl);
 
 if (!isRemote) {
   console.log("[db-deploy] Pas de base distante configurée — étape ignorée.");
@@ -21,7 +32,10 @@ if (!isRemote) {
 
 try {
   console.log("[db-deploy] prisma db push (création des tables)…");
-  execSync("prisma db push --skip-generate", { stdio: "inherit" });
+  execSync("prisma db push --skip-generate", {
+    stdio: "inherit",
+    env: { ...process.env, DATABASE_URL: pushUrl },
+  });
   console.log("[db-deploy] Tables synchronisées.");
 } catch (e) {
   console.warn("[db-deploy] Échec de la synchronisation (le build continue).", e?.message || e);
