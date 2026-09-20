@@ -335,7 +335,6 @@ export default function SettingsClient({
           <Field label="Libellé « en ligne »" value={content.bubble.onlineLabel} onChange={(v) => update((d) => { d.bubble.onlineLabel = v; })} />
           <Field label="Titre messagerie" value={content.bubble.messagingTitle} onChange={(v) => update((d) => { d.bubble.messagingTitle = v; })} />
           <Field label="Sous-titre messagerie" value={content.bubble.messagingSubtitle} onChange={(v) => update((d) => { d.bubble.messagingSubtitle = v; })} />
-          <Field label="Libellé bouton de son" value={content.bubble.soundLabel} onChange={(v) => update((d) => { d.bubble.soundLabel = v; })} />
         </div>
       )}
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "./Icons";
@@ -21,142 +21,6 @@ export interface BubbleProps {
   brandName: string;
 }
 
-/* ── Ambiance sonore douce générée par le navigateur (Web Audio) ── */
-function useAmbient() {
-  const ctxRef = useRef<AudioContext | null>(null);
-  const masterRef = useRef<GainNode | null>(null);
-  const nodesRef = useRef<AudioNode[]>([]);
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const [on, setOn] = useState(false);
-
-  const stop = useCallback(() => {
-    const ctx = ctxRef.current;
-    const master = masterRef.current;
-    if (master && ctx) {
-      master.gain.cancelScheduledValues(ctx.currentTime);
-      master.gain.setValueAtTime(master.gain.value, ctx.currentTime);
-      master.gain.linearRampToValueAtTime(0.0001, ctx.currentTime + 0.8);
-    }
-    if (timerRef.current) {
-      clearInterval(timerRef.current);
-      timerRef.current = null;
-    }
-    window.setTimeout(() => {
-      nodesRef.current.forEach((n) => {
-        try {
-          (n as OscillatorNode).stop?.();
-        } catch {
-          /* noop */
-        }
-        try {
-          n.disconnect();
-        } catch {
-          /* noop */
-        }
-      });
-      nodesRef.current = [];
-    }, 900);
-    setOn(false);
-  }, []);
-
-  const start = useCallback(() => {
-    const AudioCtx =
-      window.AudioContext ||
-      (window as unknown as { webkitAudioContext: typeof AudioContext })
-        .webkitAudioContext;
-    if (!AudioCtx) return;
-    const ctx = ctxRef.current ?? new AudioCtx();
-    ctxRef.current = ctx;
-    if (ctx.state === "suspended") ctx.resume();
-
-    const master = ctx.createGain();
-    master.gain.setValueAtTime(0.0001, ctx.currentTime);
-    master.gain.linearRampToValueAtTime(0.12, ctx.currentTime + 1.4);
-    master.connect(ctx.destination);
-    masterRef.current = master;
-
-    // Nappe chaude (accord doux) filtrée en passe-bas
-    const filter = ctx.createBiquadFilter();
-    filter.type = "lowpass";
-    filter.frequency.value = 1100;
-    filter.Q.value = 0.6;
-    filter.connect(master);
-
-    const padGain = ctx.createGain();
-    padGain.gain.value = 0.5;
-    padGain.connect(filter);
-
-    const chord = [220, 277.18, 329.63]; // La mineur doux (A3, C#4, E4)
-    chord.forEach((freq, i) => {
-      const osc = ctx.createOscillator();
-      osc.type = i === 0 ? "sine" : "triangle";
-      osc.frequency.value = freq;
-      osc.detune.value = (i - 1) * 4;
-      osc.connect(padGain);
-      osc.start();
-      nodesRef.current.push(osc);
-    });
-
-    // Trémolo lent pour un rendu vivant
-    const lfo = ctx.createOscillator();
-    const lfoGain = ctx.createGain();
-    lfo.frequency.value = 0.12;
-    lfoGain.gain.value = 0.18;
-    lfo.connect(lfoGain);
-    lfoGain.connect(padGain.gain);
-    lfo.start();
-    nodesRef.current.push(lfo, lfoGain);
-
-    // Petites notes cristallines occasionnelles (gamme pentatonique)
-    const bells = [523.25, 587.33, 659.25, 783.99, 880]; // C5 D5 E5 G5 A5
-    const playBell = () => {
-      if (!ctxRef.current) return;
-      const t = ctx.currentTime;
-      const o = ctx.createOscillator();
-      const g = ctx.createGain();
-      o.type = "sine";
-      o.frequency.value = bells[Math.floor(Math.random() * bells.length)];
-      g.gain.setValueAtTime(0.0001, t);
-      g.gain.linearRampToValueAtTime(0.09, t + 0.05);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + 2.6);
-      o.connect(g);
-      g.connect(master);
-      o.start(t);
-      o.stop(t + 2.8);
-    };
-    window.setTimeout(playBell, 600);
-    timerRef.current = setInterval(
-      () => {
-        if (Math.random() > 0.35) playBell();
-      },
-      4200,
-    );
-
-    setOn(true);
-  }, []);
-
-  const toggle = useCallback(() => {
-    if (on) stop();
-    else start();
-  }, [on, start, stop]);
-
-  useEffect(() => {
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-      nodesRef.current.forEach((n) => {
-        try {
-          (n as OscillatorNode).stop?.();
-        } catch {
-          /* noop */
-        }
-      });
-      ctxRef.current?.close().catch(() => {});
-    };
-  }, []);
-
-  return { on, toggle };
-}
-
 export default function ContactBubble({
   email,
   phone,
@@ -171,7 +35,6 @@ export default function ContactBubble({
   const [form, setForm] = useState({ name: "", email: "", body: "" });
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
-  const { on: soundOn, toggle: toggleSound } = useAmbient();
   const panelRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -269,44 +132,6 @@ export default function ContactBubble({
                   <span className="block truncate text-sm text-muted">
                     {labels.messagingSubtitle}
                   </span>
-                </span>
-              </button>
-
-              <div className="mx-3 my-1 h-px bg-rose-100" />
-
-              {/* Bouton de son */}
-              <button
-                onClick={toggleSound}
-                aria-pressed={soundOn}
-                className="group flex w-full items-center gap-3 rounded-2xl px-3 py-3 text-left transition hover:bg-white/70"
-              >
-                <span
-                  className={`grid h-11 w-11 place-items-center rounded-full transition ${
-                    soundOn
-                      ? "bg-rose-500 text-white"
-                      : "bg-rose-100 text-rose-600"
-                  }`}
-                >
-                  <Icon name={soundOn ? "sound" : "mute"} width={20} height={20} />
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block font-semibold text-plum">
-                    {labels.soundLabel}
-                  </span>
-                  <span className="block truncate text-sm text-muted">
-                    {soundOn ? "Ambiance activée — cliquez pour couper" : "Cliquez pour une ambiance douce"}
-                  </span>
-                </span>
-                <span
-                  className={`relative h-6 w-11 shrink-0 rounded-full transition ${
-                    soundOn ? "bg-rose-500" : "bg-rose-200"
-                  }`}
-                >
-                  <span
-                    className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-all ${
-                      soundOn ? "left-[1.4rem]" : "left-0.5"
-                    }`}
-                  />
                 </span>
               </button>
 
