@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { requireAuth } from "@/lib/session";
 import { prisma } from "@/lib/prisma";
+import { ensureSeeded } from "@/lib/bootstrap";
 import AdminShell from "../components/AdminShell";
 
 export const dynamic = "force-dynamic";
@@ -10,6 +11,7 @@ export default async function PanelLayout({
 }: {
   children: React.ReactNode;
 }) {
+  await ensureSeeded();
   const auth = await requireAuth();
   if (!auth) redirect("/admin/login");
 
