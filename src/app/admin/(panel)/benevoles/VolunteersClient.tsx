@@ -107,7 +107,7 @@ export default function VolunteersClient({ volunteers }: { volunteers: Volunteer
       {filtered.length === 0 ? (
         <EmptyState icon="handHeart" title="Aucun bénévole" sub="Les candidatures envoyées depuis le site apparaîtront ici." />
       ) : (
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {filtered.map((v) => (
             <div key={v.id} className="glass-card p-4">
               <div className="flex items-start gap-3">
@@ -152,7 +152,7 @@ export default function VolunteersClient({ volunteers }: { volunteers: Volunteer
 
       <Modal open={open} onClose={() => setOpen(false)} title={form.id ? "Fiche bénévole" : "Nouveau bénévole"} wide>
         <form onSubmit={save} className="space-y-4">
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div><label className="field-label">Prénom *</label><input className="field" value={form.firstName} onChange={(e) => setForm({ ...form, firstName: e.target.value })} required /></div>
             <div><label className="field-label">Nom *</label><input className="field" value={form.lastName} onChange={(e) => setForm({ ...form, lastName: e.target.value })} required /></div>
             <div><label className="field-label">E-mail</label><input className="field" type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} /></div>

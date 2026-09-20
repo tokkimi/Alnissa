@@ -138,7 +138,7 @@ export default function DonorsClient({ donors }: { donors: Donor[] }) {
       {filtered.length === 0 ? (
         <EmptyState icon="users" title="Aucun donateur" sub="Ajoutez un donateur ou modifiez votre recherche." />
       ) : (
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {filtered.map((d) => (
             <div key={d.id} className="glass-card p-4">
               <div className="flex items-start gap-3">
@@ -204,7 +204,7 @@ export default function DonorsClient({ donors }: { donors: Donor[] }) {
               </div>
             </div>
 
-            <div className="grid gap-3 rounded-2xl bg-white/60 p-4 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-3 rounded-2xl bg-white/60 p-4 sm:grid-cols-2">
               {current.email && <Info icon="mail" label="E-mail" value={current.email} />}
               {current.phone && <Info icon="phone" label="Téléphone" value={current.phone} />}
               {(current.address || current.city) && (
@@ -252,7 +252,7 @@ export default function DonorsClient({ donors }: { donors: Donor[] }) {
       {/* Ajout / édition */}
       <Modal open={modal === "edit"} onClose={() => setModal("none")} title={form.id ? "Modifier le donateur" : "Nouveau donateur"} wide>
         <form onSubmit={save} className="space-y-4">
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
               <label className="field-label">Prénom *</label>
               <input className="field" value={form.firstName} onChange={(e) => setForm({ ...form, firstName: e.target.value })} required />

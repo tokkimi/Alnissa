@@ -6,9 +6,9 @@ import type { SiteContent } from "@/lib/content";
 export default function ActionsSection({ content }: { content: SiteContent }) {
   const { actions } = content;
   return (
-    <section id="nos-actions" className="container-x py-16 sm:py-20">
+    <section id="nos-actions" className="container-x py-10 sm:py-16">
       <SectionHeader kicker={actions.kicker} title={actions.title} subtitle={actions.subtitle} />
-      <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-8 sm:mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {actions.items.map((a, i) => (
           <Reveal key={i} delay={(i % 3) * 90}>
             <article className="glass-card group h-full overflow-hidden p-7 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-soft">

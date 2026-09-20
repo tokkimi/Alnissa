@@ -30,16 +30,16 @@ export default async function FaireUnDonPage() {
       />
 
       {/* Impact */}
-      <section className="container-x py-8">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <section className="container-x py-6">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
           {IMPACT.map((it, i) => (
-            <Reveal key={i} delay={i * 80}>
-              <div className="glass-card h-full p-6 text-center">
-                <div className="mx-auto mb-3 inline-grid h-12 w-12 place-items-center rounded-2xl bg-rose-100 text-rose-600">
-                  <Icon name={it.icon} width={24} height={24} />
+            <Reveal key={i} delay={i * 70}>
+              <div className="glass-card h-full p-4 text-center sm:p-6">
+                <div className="mx-auto mb-2 inline-grid h-11 w-11 place-items-center rounded-2xl bg-rose-100 text-rose-600 sm:mb-3 sm:h-12 sm:w-12">
+                  <Icon name={it.icon} width={22} height={22} />
                 </div>
-                <p className="font-display text-3xl text-gradient">{it.amount}</p>
-                <p className="mt-2 text-sm leading-relaxed text-plum/75">{it.text}</p>
+                <p className="font-display text-2xl text-gradient sm:text-3xl">{it.amount}</p>
+                <p className="mt-1.5 text-xs leading-relaxed text-plum/75 sm:text-sm">{it.text}</p>
               </div>
             </Reveal>
           ))}

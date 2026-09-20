@@ -46,7 +46,9 @@ export default function Header({ brandName }: { brandName: string }) {
       <div className="container-x">
         <div
           className={`flex items-center justify-between gap-4 rounded-full px-3 py-2 transition-all duration-300 ${
-            scrolled ? "glass shadow-lg" : "bg-transparent"
+            scrolled
+              ? "border border-white/70 bg-white/90 shadow-md backdrop-blur-xl"
+              : "bg-transparent"
           }`}
         >
           <Link href="/" className="flex items-center gap-3" aria-label={brandName}>

@@ -140,12 +140,12 @@ export default function SettingsClient({
       {tab === "hero" && (
         <div className="glass-card space-y-4 p-6">
           <Field label="Sur-titre (ex. Lyon & Agadir)" value={content.hero.kicker} onChange={(v) => update((d) => { d.hero.kicker = v; })} />
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Field label="Titre" value={content.hero.title} onChange={(v) => update((d) => { d.hero.title = v; })} />
             <Field label="Mot mis en avant" value={content.hero.highlight} onChange={(v) => update((d) => { d.hero.highlight = v; })} />
           </div>
           <Field label="Sous-titre" value={content.hero.subtitle} onChange={(v) => update((d) => { d.hero.subtitle = v; })} textarea />
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Field label="Bouton 1 — texte" value={content.hero.ctaPrimary.label} onChange={(v) => update((d) => { d.hero.ctaPrimary.label = v; })} />
             <Field label="Bouton 1 — lien" value={content.hero.ctaPrimary.href} onChange={(v) => update((d) => { d.hero.ctaPrimary.href = v; })} />
             <Field label="Bouton 2 — texte" value={content.hero.ctaSecondary.label} onChange={(v) => update((d) => { d.hero.ctaSecondary.label = v; })} />
@@ -174,7 +174,7 @@ export default function SettingsClient({
           <div className="glass-card space-y-3 p-6">
             <h3 className="font-display text-xl text-plum">Valeurs</h3>
             {content.about.values.map((val, i) => (
-              <div key={i} className="grid gap-2 rounded-2xl bg-white/60 p-3 sm:grid-cols-[8rem_1fr_auto]">
+              <div key={i} className="grid grid-cols-1 gap-2 rounded-2xl bg-white/60 p-3 sm:grid-cols-[8rem_1fr_auto]">
                 <input className="field" list="icon-names" value={val.icon} onChange={(e) => update((d) => { d.about.values[i].icon = e.target.value; })} placeholder="icône" />
                 <div className="space-y-2">
                   <input className="field" value={val.title} onChange={(e) => update((d) => { d.about.values[i].title = e.target.value; })} placeholder="Titre" />
@@ -216,7 +216,7 @@ export default function SettingsClient({
           <Field label="Sous-titre" value={content.actions.subtitle} onChange={(v) => update((d) => { d.actions.subtitle = v; })} />
           <div className="space-y-2 pt-2">
             {content.actions.items.map((a, i) => (
-              <div key={i} className="grid gap-2 rounded-2xl bg-white/60 p-3 sm:grid-cols-[8rem_1fr_auto]">
+              <div key={i} className="grid grid-cols-1 gap-2 rounded-2xl bg-white/60 p-3 sm:grid-cols-[8rem_1fr_auto]">
                 <input className="field" list="icon-names" value={a.icon} onChange={(e) => update((d) => { d.actions.items[i].icon = e.target.value; })} placeholder="icône" />
                 <div className="space-y-2">
                   <input className="field" value={a.title} onChange={(e) => update((d) => { d.actions.items[i].title = e.target.value; })} placeholder="Titre" />
@@ -240,7 +240,7 @@ export default function SettingsClient({
           <Field label="Sur-titre" value={content.donation.kicker} onChange={(v) => update((d) => { d.donation.kicker = v; })} />
           <Field label="Titre" value={content.donation.title} onChange={(v) => update((d) => { d.donation.title = v; })} />
           <Field label="Sous-titre" value={content.donation.subtitle} onChange={(v) => update((d) => { d.donation.subtitle = v; })} textarea />
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Field label="Bénéficiaire" value={content.donation.accountName} onChange={(v) => update((d) => { d.donation.accountName = v; })} />
             <Field label="Banque" value={content.donation.bankName} onChange={(v) => update((d) => { d.donation.bankName = v; })} />
             <Field label="IBAN" value={content.donation.iban} onChange={(v) => update((d) => { d.donation.iban = v; })} />
@@ -261,7 +261,7 @@ export default function SettingsClient({
       {/* CONTACT */}
       {tab === "contact" && (
         <div className="glass-card space-y-4 p-6">
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Field label="E-mail" value={content.contact.email} onChange={(v) => update((d) => { d.contact.email = v; })} />
             <Field label="Téléphone" value={content.contact.phone} onChange={(v) => update((d) => { d.contact.phone = v; })} />
             <Field label="WhatsApp (numéro international)" value={content.contact.whatsapp} onChange={(v) => update((d) => { d.contact.whatsapp = v; })} placeholder="+33672141673" />
@@ -298,7 +298,7 @@ export default function SettingsClient({
       {tab === "legal" && (
         <div className="glass-card space-y-4 p-6">
           <Field label="Nom de l'association" value={content.legal.associationName} onChange={(v) => update((d) => { d.legal.associationName = v; })} />
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Field label="N° RNA" value={content.legal.rna} onChange={(v) => update((d) => { d.legal.rna = v; })} />
             <Field label="SIRET" value={content.legal.siret} onChange={(v) => update((d) => { d.legal.siret = v; })} />
           </div>

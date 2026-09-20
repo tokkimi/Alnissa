@@ -29,8 +29,8 @@
   --radius-2xl: 1.5rem;
   --radius-3xl: 2rem;
 
-  --shadow-soft: 0 12px 40px -12px rgba(160, 80, 100, 0.28);
-  --shadow-glass: 0 8px 32px rgba(120, 60, 80, 0.16);
+  --shadow-soft: 0 14px 40px -18px rgba(120, 70, 90, 0.22);
+  --shadow-glass: 0 6px 24px -8px rgba(120, 80, 95, 0.10);
 
   --animate-float: float 6s ease-in-out infinite;
 }
@@ -61,11 +61,10 @@
   body {
     font-family: var(--font-sans);
     color: var(--color-ink);
-    background-color: #fff8f4;
+    background-color: #fffdfb;
     background-image:
-      radial-gradient(60rem 60rem at 85% -10%, rgba(238, 174, 186, 0.35), transparent 55%),
-      radial-gradient(50rem 50rem at 5% 10%, rgba(181, 127, 160, 0.18), transparent 50%),
-      radial-gradient(70rem 70rem at 50% 120%, rgba(251, 230, 234, 0.9), transparent 60%);
+      radial-gradient(48rem 34rem at 92% -12%, rgba(238, 174, 186, 0.16), transparent 60%),
+      radial-gradient(40rem 32rem at -5% 4%, rgba(181, 127, 160, 0.06), transparent 58%);
     background-attachment: fixed;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -118,10 +117,10 @@
 
   /* Glassmorphism */
   .glass {
-    background: rgba(255, 255, 255, 0.55);
-    backdrop-filter: blur(16px) saturate(140%);
-    -webkit-backdrop-filter: blur(16px) saturate(140%);
-    border: 1px solid rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(18px) saturate(130%);
+    -webkit-backdrop-filter: blur(18px) saturate(130%);
+    border: 1px solid rgba(255, 255, 255, 0.7);
     box-shadow: var(--shadow-glass);
   }
   .glass-dark {
@@ -132,10 +131,10 @@
     box-shadow: 0 20px 50px -12px rgba(20, 10, 20, 0.5);
   }
   .glass-card {
-    background: rgba(255, 255, 255, 0.62);
-    backdrop-filter: blur(14px) saturate(135%);
-    -webkit-backdrop-filter: blur(14px) saturate(135%);
-    border: 1px solid rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.86);
+    backdrop-filter: blur(12px) saturate(120%);
+    -webkit-backdrop-filter: blur(12px) saturate(120%);
+    border: 1px solid rgba(233, 214, 220, 0.55);
     box-shadow: var(--shadow-glass);
     border-radius: var(--radius-2xl);
   }
@@ -194,8 +193,8 @@
   }
   .reveal {
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
+    transform: translateY(10px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
   }
   .reveal.is-visible {
     opacity: 1;

@@ -55,8 +55,8 @@ export default function VolunteerForm() {
   }
 
   return (
-    <form onSubmit={submit} className="glass-card p-7 sm:p-9">
-      <div className="grid gap-4 sm:grid-cols-2">
+    <form onSubmit={submit} className="glass-card p-6 sm:p-8">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
           <label className="field-label">Prénom *</label>
           <input className="field" value={form.firstName} onChange={(e) => update("firstName", e.target.value)} required />

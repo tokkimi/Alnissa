@@ -6,9 +6,9 @@ import type { SiteContent } from "@/lib/content";
 export default function DonateBand({ content }: { content: SiteContent }) {
   const { donation } = content;
   return (
-    <section className="container-x py-16 sm:py-20">
+    <section className="container-x py-10 sm:py-16">
       <Reveal>
-        <div className="relative overflow-hidden rounded-[2.5rem] px-6 py-14 text-center text-white shadow-soft sm:px-16">
+        <div className="relative overflow-hidden rounded-[2rem] px-6 py-12 text-center text-white shadow-soft sm:px-16">
           <div
             className="absolute inset-0 -z-10"
             style={{

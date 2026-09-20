@@ -25,7 +25,7 @@ export default function Footer({ content }: { content: SiteContent }) {
         }}
       />
 
-      <div className="container-x py-16">
+      <div className="container-x py-12 sm:py-14">
         <div className="grid gap-10 md:grid-cols-4">
           {/* Marque */}
           <div className="md:col-span-1">

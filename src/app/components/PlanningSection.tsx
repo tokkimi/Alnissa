@@ -32,13 +32,13 @@ export default async function PlanningSection() {
   if (events.length === 0) return null;
 
   return (
-    <section id="planning" className="container-x py-16 sm:py-20">
+    <section id="planning" className="container-x py-10 sm:py-16">
       <SectionHeader
         kicker="Notre planning"
         title="Rejoignez-nous sur le terrain"
         subtitle="Nos rendez-vous réguliers. Chacun est le bienvenu pour donner un coup de main."
       />
-      <div className="mt-12 grid gap-5 sm:grid-cols-2">
+      <div className="mt-8 sm:mt-12 grid gap-5 sm:grid-cols-2">
         {events.map((e, i) => (
           <Reveal key={e.id} delay={(i % 2) * 90}>
             <article className="glass-card flex gap-4 p-6">

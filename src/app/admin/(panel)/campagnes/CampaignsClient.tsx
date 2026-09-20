@@ -67,7 +67,7 @@ export default function CampaignsClient({ campaigns }: { campaigns: Campaign[] }
       {campaigns.length === 0 ? (
         <EmptyState icon="megaphone" title="Aucune campagne" sub="Créez votre première campagne de collecte." />
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {campaigns.map((c) => {
             const pct = c.goalAmount > 0 ? Math.min(100, Math.round((c.raised / c.goalAmount) * 100)) : 0;
             return (
@@ -118,7 +118,7 @@ export default function CampaignsClient({ campaigns }: { campaigns: Campaign[] }
             <label className="field-label">Description</label>
             <textarea className="field min-h-[70px] resize-y" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
           </div>
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
               <label className="field-label">Objectif (€)</label>
               <input className="field" type="number" min="0" step="1" value={form.goalAmount} onChange={(e) => setForm({ ...form, goalAmount: e.target.value })} />

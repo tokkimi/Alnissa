@@ -122,7 +122,7 @@ export default function EventsClient({ events }: { events: EventItem[] }) {
             <label className="field-label">Description</label>
             <textarea className="field min-h-[70px] resize-y" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
           </div>
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
               <label className="field-label">Type</label>
               <select className="field" value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })}>

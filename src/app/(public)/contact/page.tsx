@@ -32,7 +32,7 @@ export default async function ContactPage() {
       />
 
       <section className="container-x py-8">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {cards.map((c, i) => (
             <Reveal key={i} delay={i * 70}>
               <a
@@ -57,9 +57,9 @@ export default async function ContactPage() {
       </section>
 
       <section className="container-x py-8">
-        <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr]">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_1.2fr]">
           <Reveal>
-            <div className="glass-card h-full p-7 sm:p-9">
+            <div className="glass-card h-full p-6 sm:p-8">
               <h2 className="font-display text-3xl text-plum">Où nous trouver</h2>
               <div className="mt-5 space-y-4 text-plum/80">
                 <p className="flex items-start gap-3">

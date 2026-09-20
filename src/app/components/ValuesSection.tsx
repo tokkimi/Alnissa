@@ -6,8 +6,8 @@ import type { SiteContent } from "@/lib/content";
 export default function ValuesSection({ content }: { content: SiteContent }) {
   const { about } = content;
   return (
-    <section className="container-x py-16 sm:py-20">
-      <div className="grid items-center gap-12 lg:grid-cols-2">
+    <section className="container-x py-10 sm:py-16">
+      <div className="grid grid-cols-1 items-center gap-8 sm:gap-12 lg:grid-cols-2">
         <Reveal>
           <div>
             <p className="kicker">{about.kicker}</p>

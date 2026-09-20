@@ -34,7 +34,7 @@ export default function CommercesPage() {
 
       {/* Comment ça marche */}
       <section className="container-x py-8">
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           {STEPS.map((s, i) => (
             <Reveal key={i} delay={i * 90}>
               <div className="glass-card h-full p-6 text-center">
@@ -51,7 +51,7 @@ export default function CommercesPage() {
 
       {/* Formulaire */}
       <section className="container-x py-8">
-        <div className="grid gap-8 lg:grid-cols-[1fr_1.3fr]">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_1.3fr]">
           <Reveal>
             <div>
               <h2 className="font-display text-3xl text-plum sm:text-4xl">Pourquoi donner&nbsp;?</h2>

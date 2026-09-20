@@ -19,7 +19,7 @@ function CopyRow({ label, value }: { label: string; value: string }) {
     <div className="flex items-center justify-between gap-3 rounded-2xl bg-white/70 px-4 py-3">
       <div className="min-w-0">
         <p className="text-xs font-semibold uppercase tracking-wider text-muted">{label}</p>
-        <p className="truncate font-mono text-[0.95rem] font-medium text-plum">{value}</p>
+        <p className="break-all font-mono text-[0.85rem] font-medium leading-snug text-plum sm:text-[0.95rem]">{value}</p>
       </div>
       <button
         onClick={copy}
@@ -38,10 +38,10 @@ export default function DonationDetails({ content }: { content: SiteContent }) {
   const [amount, setAmount] = useState<number | null>(donation.suggestions[1] ?? null);
 
   return (
-    <section className="container-x py-10">
-      <div className="grid gap-6 lg:grid-cols-2">
+    <section className="container-x py-8">
+      <div className="grid grid-cols-1 gap-5 sm:gap-6 lg:grid-cols-2">
         {/* Don en ligne / montants */}
-        <div className="glass-card p-7 sm:p-9">
+        <div className="glass-card p-6 sm:p-8">
           <div className="mb-2 inline-grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-rose-400 to-rose-600 text-white">
             <Icon name="heart" width={24} height={24} />
           </div>
@@ -81,7 +81,7 @@ export default function DonationDetails({ content }: { content: SiteContent }) {
         </div>
 
         {/* Virement bancaire (RIB) */}
-        <div className="glass-card p-7 sm:p-9">
+        <div className="glass-card p-6 sm:p-8">
           <div className="mb-2 inline-grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-mauve to-rose-600 text-white">
             <Icon name="bank" width={24} height={24} />
           </div>
@@ -111,7 +111,7 @@ export default function DonationDetails({ content }: { content: SiteContent }) {
       </div>
 
       {/* Autres façons d'aider */}
-      <div className="glass-card mt-6 flex flex-col items-center justify-between gap-4 p-7 text-center sm:flex-row sm:text-left">
+      <div className="glass-card mt-5 flex flex-col items-center justify-between gap-4 p-6 text-center sm:flex-row sm:text-left">
         <div>
           <h3 className="font-display text-2xl text-plum">Dons en nature & partenariats</h3>
           <p className="mt-1 text-sm text-plum/75">

@@ -75,8 +75,8 @@ export default function CommerceForm() {
   }
 
   return (
-    <form onSubmit={submit} className="glass-card p-7 sm:p-9">
-      <div className="grid gap-4 sm:grid-cols-2">
+    <form onSubmit={submit} className="glass-card p-6 sm:p-8">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
           <label className="field-label">Nom du commerce *</label>
           <input className="field" value={form.businessName} onChange={(e) => set("businessName", e.target.value)} required placeholder="Ex. Boulangerie Le Fournil" />

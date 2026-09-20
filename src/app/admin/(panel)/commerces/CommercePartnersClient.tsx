@@ -124,7 +124,7 @@ export default function CommercePartnersClient({ partners }: { partners: FoodPar
       {filtered.length === 0 ? (
         <EmptyState icon="box" title="Aucune proposition" sub="Les dons proposés par les commerçants apparaîtront ici." />
       ) : (
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {filtered.map((p) => {
             const url = mapUrl(p);
             return (
@@ -192,7 +192,7 @@ export default function CommercePartnersClient({ partners }: { partners: FoodPar
 
       <Modal open={open} onClose={() => setOpen(false)} title={form.id ? "Fiche commerçant" : "Nouveau commerçant"} wide>
         <form onSubmit={save} className="space-y-4">
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div><label className="field-label">Nom du commerce *</label><input className="field" value={form.businessName} onChange={(e) => setForm({ ...form, businessName: e.target.value })} required /></div>
             <div><label className="field-label">Type</label><input className="field" value={form.businessType} onChange={(e) => setForm({ ...form, businessType: e.target.value })} /></div>
             <div className="sm:col-span-2"><label className="field-label">Adresse</label><input className="field" value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} /></div>

@@ -5,9 +5,9 @@ import type { SiteContent } from "@/lib/content";
 export default function StatsSection({ content }: { content: SiteContent }) {
   const { stats } = content;
   return (
-    <section className="container-x py-16 sm:py-20">
+    <section className="container-x py-10 sm:py-16">
       <SectionHeader kicker={stats.kicker} title={stats.title} subtitle={stats.subtitle} />
-      <div className="mt-12 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
+      <div className="mt-8 sm:mt-12 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
         {stats.items.map((s, i) => (
           <Reveal key={i} delay={i * 90}>
             <div className="glass-card group h-full p-6 text-center transition-transform duration-300 hover:-translate-y-1 sm:p-8">

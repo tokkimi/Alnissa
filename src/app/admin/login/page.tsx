@@ -51,7 +51,7 @@ export default function AdminLoginPage() {
           <p className="mt-1 text-sm text-plum/70">Association Al Nissa</p>
         </div>
 
-        <form onSubmit={submit} className="glass-card p-7 sm:p-9">
+        <form onSubmit={submit} className="glass-card p-6 sm:p-8">
           <div className="space-y-4">
             <div>
               <label className="field-label">Adresse e-mail</label>
