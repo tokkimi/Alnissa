@@ -94,6 +94,7 @@ export default function Footer({ content }: { content: SiteContent }) {
               <li><Link href="/" className="hover:text-white">Accueil</Link></li>
               <li><Link href="/nos-actions" className="hover:text-white">Nos actions</Link></li>
               <li><Link href="/faire-un-don" className="hover:text-white">Faire un don</Link></li>
+              <li><Link href="/commerces" className="hover:text-white">Commerçants : donner</Link></li>
               <li><Link href="/benevolat" className="hover:text-white">Devenir bénévole</Link></li>
               <li><Link href="/contact" className="hover:text-white">Contact</Link></li>
               <li><Link href="/mentions-legales" className="hover:text-white">Mentions légales</Link></li>

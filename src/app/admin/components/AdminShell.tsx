@@ -20,7 +20,7 @@ export default function AdminShell({
 }: {
   children: React.ReactNode;
   userName: string;
-  badges: { messages: number; volunteers: number };
+  badges: { messages: number; volunteers: number; commerces: number };
 }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -32,6 +32,7 @@ export default function AdminShell({
     { label: "Donateurs", href: "/admin/donateurs", icon: "users" },
     { label: "Messagerie", href: "/admin/messages", icon: "inbox", badge: badges.messages },
     { label: "Bénévoles", href: "/admin/benevoles", icon: "handHeart", badge: badges.volunteers },
+    { label: "Commerçants", href: "/admin/commerces", icon: "box", badge: badges.commerces },
     { label: "Campagnes", href: "/admin/campagnes", icon: "megaphone" },
     { label: "Planning", href: "/admin/evenements", icon: "calendar" },
     { label: "Paramètres", href: "/admin/parametres", icon: "settings" },

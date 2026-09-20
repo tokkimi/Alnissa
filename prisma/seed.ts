@@ -324,6 +324,43 @@ async function main() {
     });
   }
 
+  // Commerçants partenaires (démo)
+  const existingPartners = await prisma.foodPartner.count();
+  if (existingPartners === 0) {
+    await prisma.foodPartner.createMany({
+      data: [
+        {
+          businessName: "Boulangerie Le Fournil Doré",
+          businessType: "Boulangerie",
+          contactName: "M. Bernard",
+          phone: "04 78 11 22 33",
+          address: "12 Rue de la République",
+          postalCode: "69002",
+          city: "Lyon",
+          foodType: "Pain et viennoiseries invendus",
+          frequency: "Quotidien",
+          availability: "Tous les soirs après 19h30",
+          status: "ACTIVE",
+          notes: "Partenaire de démonstration — vous pouvez le supprimer.",
+        },
+        {
+          businessName: "Primeur Chez Fatima",
+          businessType: "Primeur",
+          phone: "06 22 33 44 55",
+          address: "45 Cours Gambetta",
+          postalCode: "69003",
+          city: "Lyon",
+          foodType: "Fruits & légumes",
+          frequency: "Hebdomadaire",
+          availability: "Le samedi en fin de marché",
+          status: "NEW",
+          notes: "Proposition de démonstration.",
+        },
+      ],
+    });
+    console.log("✔ 2 commerçants partenaires (démo) créés");
+  }
+
   console.log("\n🌸 Base de données initialisée pour l'Association Al Nissa.");
 }
 

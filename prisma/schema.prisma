@@ -151,6 +151,32 @@ model EventItem {
   updatedAt   DateTime  @updatedAt
 }
 
+/// Commerçants / partenaires proposant des dons de nourriture (invendus, denrées…).
+model FoodPartner {
+  id           String   @id @default(cuid())
+  businessName String
+  businessType String? // Boulangerie, Épicerie, Restaurant, Primeur…
+  contactName  String?
+  email        String?
+  phone        String?
+  address      String?
+  postalCode   String?
+  city         String?
+  lat          Float?
+  lng          Float?
+  foodType     String? // type de denrées proposées
+  frequency    String? // ponctuel | régulier | quotidien | hebdomadaire
+  availability String? // créneaux de collecte
+  message      String?
+  status       String   @default("NEW") // NEW | CONTACTED | ACTIVE | DECLINED
+  notes        String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([status])
+  @@index([createdAt])
+}
+
 /// Inscrits à la lettre d'information / appel aux dons.
 model Subscriber {
   id        String   @id @default(cuid())

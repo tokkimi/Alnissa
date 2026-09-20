@@ -4,6 +4,7 @@ import ValuesSection from "../components/ValuesSection";
 import ActionsSection from "../components/ActionsSection";
 import PlanningSection from "../components/PlanningSection";
 import DonateBand from "../components/DonateBand";
+import CommerceBand from "../components/CommerceBand";
 import InstagramCTA from "../components/InstagramCTA";
 import { getSiteContent } from "@/lib/settings";
 
@@ -16,6 +17,7 @@ export default async function HomePage() {
       <ValuesSection content={content} />
       <ActionsSection content={content} />
       <PlanningSection />
+      <CommerceBand />
       <DonateBand content={content} />
       <InstagramCTA content={content} />
     </>

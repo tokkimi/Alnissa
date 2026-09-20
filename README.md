@@ -14,6 +14,8 @@ messagerie, bénévoles, campagnes et planning.
 - **Accueil** : hero avec le logo, chiffres d'impact, valeurs, actions, planning, appel aux dons, réseaux.
 - **Nos actions** : maraudes, repas, colis, visites aux aînés, distributions d'eau, événements.
 - **Faire un don** : impact du don, don en ligne, **RIB/IBAN avec copie en un clic**, dons en nature.
+- **Commerçants** : les commerces (boulangeries, épiceries, restaurants…) proposent leurs
+  dons de nourriture via un formulaire avec **adresse en autocomplétion** (suggestions dès la saisie).
 - **Bénévolat** : présentation + formulaire de candidature.
 - **Contact** : coordonnées + formulaire (arrive dans la messagerie de l'admin).
 - **Mentions légales**.
@@ -30,6 +32,7 @@ messagerie, bénévoles, campagnes et planning.
 - **Donateurs** : fiche complète, historique des dons, total donné, étiquettes, particuliers/entreprises, **export CSV**.
 - **Messagerie** : tous les messages du site, statuts (nouveau/lu/répondu/archivé), favoris, notes internes, réponse par e-mail.
 - **Bénévoles** : suivi des candidatures et statuts.
+- **Commerçants** : propositions de dons de nourriture (adresse, denrées, créneaux), lien vers la carte, statuts, **export CSV**.
 - **Campagnes** : projets de collecte avec objectifs et progression.
 - **Planning** : maraudes, distributions et événements affichés sur le site.
 - **Paramètres** : modifiez **tout le contenu du site sans toucher au code** (textes, chiffres, RIB, contact, réseaux, bulle, mentions légales), changez le mot de passe, gérez les abonnés.

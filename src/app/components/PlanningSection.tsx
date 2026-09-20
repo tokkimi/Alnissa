@@ -18,10 +18,16 @@ const RECURRENCE_LABEL: Record<string, string> = {
 };
 
 export default async function PlanningSection() {
-  const events = await prisma.eventItem.findMany({
-    where: { isPublished: true },
-    orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
-  });
+  let events: Awaited<ReturnType<typeof prisma.eventItem.findMany>> = [];
+  try {
+    events = await prisma.eventItem.findMany({
+      where: { isPublished: true },
+      orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
+    });
+  } catch {
+    // Base indisponible (ex. avant configuration en production) : on masque la section.
+    return null;
+  }
 
   if (events.length === 0) return null;
 

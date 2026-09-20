@@ -337,6 +337,50 @@ export async function changePassword(current: string, next: string): Promise<Res
   return { ok: true };
 }
 
+/* ───────────────────────── Commerçants / dons alimentaires ───────────────────────── */
+export async function saveFoodPartner(data: Record<string, unknown>): Promise<Result> {
+  const g = await guard();
+  if (!g.ok) return { ok: false, error: "Non autorisé" };
+  const businessName = str(data.businessName, 200);
+  if (!businessName) return { ok: false, error: "Nom du commerce requis" };
+  const statuses = ["NEW", "CONTACTED", "ACTIVE", "DECLINED"];
+  const payload = {
+    businessName,
+    businessType: str(data.businessType, 100),
+    contactName: str(data.contactName, 120),
+    email: str(data.email, 200),
+    phone: str(data.phone, 60),
+    address: str(data.address, 300),
+    postalCode: str(data.postalCode, 20),
+    city: str(data.city, 120),
+    lat: data.lat === null || data.lat === undefined || data.lat === "" ? null : num(data.lat),
+    lng: data.lng === null || data.lng === undefined || data.lng === "" ? null : num(data.lng),
+    foodType: str(data.foodType, 300),
+    frequency: str(data.frequency, 60),
+    availability: str(data.availability, 300),
+    message: str(data.message, 3000),
+    status: statuses.includes(String(data.status)) ? String(data.status) : "NEW",
+    notes: str(data.notes, 3000),
+  };
+  const id = str(data.id, 60);
+  if (id) {
+    await prisma.foodPartner.update({ where: { id }, data: payload });
+    revalidatePath("/admin/commerces");
+    return { ok: true, id };
+  }
+  const created = await prisma.foodPartner.create({ data: payload });
+  revalidatePath("/admin/commerces");
+  return { ok: true, id: created.id };
+}
+
+export async function deleteFoodPartner(id: string): Promise<Result> {
+  const g = await guard();
+  if (!g.ok) return { ok: false, error: "Non autorisé" };
+  await prisma.foodPartner.delete({ where: { id } });
+  revalidatePath("/admin/commerces");
+  return { ok: true };
+}
+
 /* ───────────────────────── Abonnés ───────────────────────── */
 export async function deleteSubscriber(id: string): Promise<Result> {
   const g = await guard();

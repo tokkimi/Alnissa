@@ -27,6 +27,7 @@ export default async function DashboardPage() {
     recentMessages,
     campaigns,
     periodDonations,
+    foodPartnersNew,
   ] = await Promise.all([
     prisma.donation.aggregate({ _sum: { amount: true }, where: { status: "RECEIVED" } }),
     prisma.donation.aggregate({ _sum: { amount: true }, where: { status: "RECEIVED", date: { gte: startOfYear } } }),
@@ -43,6 +44,7 @@ export default async function DashboardPage() {
       where: { status: "RECEIVED", date: { gte: eightMonthsAgo } },
       select: { amount: true, date: true, campaignId: true },
     }),
+    prisma.foodPartner.count({ where: { status: "NEW" } }),
   ]);
 
   // Série mensuelle (8 mois)
@@ -106,6 +108,19 @@ export default async function DashboardPage() {
             {receiptsPending} don{receiptsPending > 1 ? "s" : ""} en attente de reçu fiscal.
           </span>
           <span className="ml-auto text-sm font-semibold">Gérer →</span>
+        </Link>
+      )}
+
+      {foodPartnersNew > 0 && (
+        <Link
+          href="/admin/commerces"
+          className="mt-4 flex items-center gap-3 rounded-2xl bg-rose-100/80 px-5 py-3.5 text-rose-700 transition hover:bg-rose-100"
+        >
+          <Icon name="box" width={20} height={20} />
+          <span className="text-sm font-medium">
+            {foodPartnersNew} nouvelle{foodPartnersNew > 1 ? "s" : ""} proposition{foodPartnersNew > 1 ? "s" : ""} de don d'un commerçant.
+          </span>
+          <span className="ml-auto text-sm font-semibold">Voir →</span>
         </Link>
       )}
 

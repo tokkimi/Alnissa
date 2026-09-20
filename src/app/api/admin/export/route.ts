@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { requireAuth } from "@/lib/session";
-import { DONATION_METHODS, DONATION_STATUSES, DONOR_TYPES, VOLUNTEER_STATUSES, MESSAGE_CHANNELS, MESSAGE_STATUSES, label } from "@/lib/constants";
+import { DONATION_METHODS, DONATION_STATUSES, DONOR_TYPES, VOLUNTEER_STATUSES, MESSAGE_CHANNELS, MESSAGE_STATUSES, FOOD_PARTNER_STATUSES, label } from "@/lib/constants";
 
 function csvCell(v: unknown): string {
   const s = v === null || v === undefined ? "" : String(v);
@@ -77,6 +77,18 @@ export async function GET(req: NextRequest) {
       ...data.map((m) => [fdate(m.createdAt), m.name, m.email ?? "", m.phone ?? "", m.subject, label(MESSAGE_CHANNELS, m.channel), label(MESSAGE_STATUSES, m.status), m.body, m.adminNote ?? ""]),
     ];
     filename = "messages-al-nissa.csv";
+  } else if (type === "commerces") {
+    const data = await prisma.foodPartner.findMany({ orderBy: { createdAt: "desc" } });
+    rows = [
+      ["Date", "Commerce", "Type", "Contact", "E-mail", "Téléphone", "Adresse", "Code postal", "Ville", "Denrées", "Fréquence", "Créneaux", "Statut", "Message", "Notes"],
+      ...data.map((p) => [
+        fdate(p.createdAt), p.businessName, p.businessType ?? "", p.contactName ?? "",
+        p.email ?? "", p.phone ?? "", p.address ?? "", p.postalCode ?? "", p.city ?? "",
+        p.foodType ?? "", p.frequency ?? "", p.availability ?? "", label(FOOD_PARTNER_STATUSES, p.status),
+        p.message ?? "", p.notes ?? "",
+      ]),
+    ];
+    filename = "commercants-al-nissa.csv";
   } else if (type === "subscribers") {
     const data = await prisma.subscriber.findMany({ orderBy: { createdAt: "desc" } });
     rows = [["E-mail", "Date d'inscription"], ...data.map((s) => [s.email, fdate(s.createdAt)])];

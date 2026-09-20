@@ -13,13 +13,14 @@ export default async function PanelLayout({
   const auth = await requireAuth();
   if (!auth) redirect("/admin/login");
 
-  const [messages, volunteers] = await Promise.all([
+  const [messages, volunteers, commerces] = await Promise.all([
     prisma.message.count({ where: { status: "NEW" } }),
     prisma.volunteer.count({ where: { status: "NEW" } }),
+    prisma.foodPartner.count({ where: { status: "NEW" } }),
   ]);
 
   return (
-    <AdminShell userName={auth.name || "Admin"} badges={{ messages, volunteers }}>
+    <AdminShell userName={auth.name || "Admin"} badges={{ messages, volunteers, commerces }}>
       {children}
     </AdminShell>
   );

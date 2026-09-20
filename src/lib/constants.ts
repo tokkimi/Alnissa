@@ -61,6 +61,13 @@ export const EVENT_RECURRENCES: Record<string, string> = {
   ONCE: "Ponctuel",
 };
 
+export const FOOD_PARTNER_STATUSES: Record<string, string> = {
+  NEW: "Nouveau",
+  CONTACTED: "Contacté",
+  ACTIVE: "Partenaire actif",
+  DECLINED: "Décliné",
+};
+
 export function label(map: Record<string, string>, key: string): string {
   return map[key] ?? key;
 }
