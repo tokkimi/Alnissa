@@ -10,8 +10,8 @@ const globalForPrisma = globalThis as unknown as {
  * le mode de connexion configuré.
  */
 const dbUrl =
+  process.env.POSTGRES_PRISMA_URL || // Neon : connexion poolée optimisée pour Prisma
   process.env.DATABASE_URL ||
-  process.env.POSTGRES_PRISMA_URL ||
   process.env.POSTGRES_URL ||
   process.env.DATABASE_URL_UNPOOLED ||
   process.env.POSTGRES_URL_NON_POOLING ||
