@@ -216,8 +216,8 @@ export const defaultContent: SiteContent = {
     iban: "FR76 2673 3000 1091 9483 2532 349",
     bic: "",
     bankName: "",
-    onlineUrl: "https://linktr.ee/associationalnissa",
-    onlineLabel: "Faire un don en ligne",
+    onlineUrl: "https://www.helloasso.com/associations/association-al-nissa/adhesions/formulaire-d-adhesion",
+    onlineLabel: "Faire un don sur HelloAsso",
     note: "Vous pouvez donner par virement bancaire (RIB ci-dessous), en ligne, ou nous contacter pour tout autre moyen.",
     taxNote:
       "Un reçu peut vous être délivré sur demande. Contactez-nous pour toute question relative à votre don.",
