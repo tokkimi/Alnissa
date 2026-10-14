@@ -199,6 +199,7 @@ export async function saveVolunteer(data: Record<string, unknown>): Promise<Resu
     phone: str(data.phone, 60),
     city: str(data.city, 120),
     availability: str(data.availability, 300),
+    companions: Math.max(0, Math.min(999, Math.round(num(data.companions)))),
     skills: str(data.skills, 500) ?? "",
     motivation: str(data.motivation, 3000),
     status: statuses.includes(String(data.status)) ? String(data.status) : "NEW",

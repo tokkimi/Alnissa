@@ -10,6 +10,7 @@ const initial = {
   phone: "",
   city: "",
   availability: "",
+  companions: "",
   skills: "",
   motivation: "",
 };
@@ -80,6 +81,10 @@ export default function VolunteerForm() {
         <div>
           <label className="field-label">Disponibilités</label>
           <input className="field" value={form.availability} onChange={(e) => update("availability", e.target.value)} placeholder="Dimanche matin, week-ends…" />
+        </div>
+        <div>
+          <label className="field-label">Nombre d'accompagnateurs</label>
+          <input className="field" type="number" min="0" inputMode="numeric" value={form.companions} onChange={(e) => update("companions", e.target.value)} placeholder="0" />
         </div>
       </div>
       <div className="mt-4">

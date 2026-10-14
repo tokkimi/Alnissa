@@ -66,8 +66,8 @@ export async function GET(req: NextRequest) {
   } else if (type === "volunteers") {
     const data = await prisma.volunteer.findMany({ orderBy: { createdAt: "desc" } });
     rows = [
-      ["Prénom", "Nom", "E-mail", "Téléphone", "Ville", "Disponibilités", "Compétences", "Statut", "Message", "Date"],
-      ...data.map((v) => [v.firstName, v.lastName, v.email ?? "", v.phone ?? "", v.city ?? "", v.availability ?? "", v.skills, label(VOLUNTEER_STATUSES, v.status), v.motivation ?? "", fdate(v.createdAt)]),
+      ["Prénom", "Nom", "E-mail", "Téléphone", "Ville", "Disponibilités", "Accompagnateurs", "Compétences", "Statut", "Message", "Date"],
+      ...data.map((v) => [v.firstName, v.lastName, v.email ?? "", v.phone ?? "", v.city ?? "", v.availability ?? "", v.companions, v.skills, label(VOLUNTEER_STATUSES, v.status), v.motivation ?? "", fdate(v.createdAt)]),
     ];
     filename = "benevoles-al-nissa.csv";
   } else if (type === "messages") {

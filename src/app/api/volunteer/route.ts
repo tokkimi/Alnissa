@@ -4,6 +4,10 @@ import { prisma } from "@/lib/prisma";
 function clean(v: unknown, max = 2000): string {
   return typeof v === "string" ? v.trim().slice(0, max) : "";
 }
+function toInt(v: unknown): number {
+  const n = typeof v === "number" ? v : parseInt(String(v ?? ""), 10);
+  return Number.isFinite(n) && n > 0 ? Math.min(n, 999) : 0;
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -27,6 +31,7 @@ export async function POST(req: NextRequest) {
         phone: clean(data.phone, 60) || null,
         city: clean(data.city, 120) || null,
         availability: clean(data.availability, 300) || null,
+        companions: toInt(data.companions),
         skills: clean(data.skills, 500),
         motivation: clean(data.motivation, 3000) || null,
       },

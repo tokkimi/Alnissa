@@ -16,6 +16,7 @@ type Volunteer = {
   phone: string | null;
   city: string | null;
   availability: string | null;
+  companions: number;
   skills: string;
   motivation: string | null;
   status: string;
@@ -32,7 +33,7 @@ const STATUS_VARIANT: Record<string, "rose" | "amber" | "green" | "gray"> = {
 
 const emptyForm = {
   id: "", firstName: "", lastName: "", email: "", phone: "", city: "",
-  availability: "", skills: "", motivation: "", status: "NEW", notes: "",
+  availability: "", companions: "", skills: "", motivation: "", status: "NEW", notes: "",
 };
 
 export default function VolunteersClient({ volunteers }: { volunteers: Volunteer[] }) {
@@ -58,6 +59,7 @@ export default function VolunteersClient({ volunteers }: { volunteers: Volunteer
     setForm({
       id: v.id, firstName: v.firstName, lastName: v.lastName, email: v.email ?? "",
       phone: v.phone ?? "", city: v.city ?? "", availability: v.availability ?? "",
+      companions: v.companions ? String(v.companions) : "",
       skills: v.skills, motivation: v.motivation ?? "", status: v.status, notes: v.notes ?? "",
     });
     setError(""); setOpen(true);
@@ -121,6 +123,11 @@ export default function VolunteersClient({ volunteers }: { volunteers: Volunteer
                     {v.city && <span>{v.city}</span>}
                   </div>
                   {v.availability && <p className="mt-1 text-xs text-plum/70">Dispo : {v.availability}</p>}
+                  {v.companions > 0 && (
+                    <p className="mt-1 inline-flex items-center gap-1 text-xs font-medium text-rose-700">
+                      <Icon name="users" width={14} height={14} /> {v.companions} accompagnateur{v.companions > 1 ? "s" : ""}
+                    </p>
+                  )}
                 </div>
                 <Badge variant={STATUS_VARIANT[v.status]}>{label(VOLUNTEER_STATUSES, v.status)}</Badge>
               </div>
@@ -159,6 +166,7 @@ export default function VolunteersClient({ volunteers }: { volunteers: Volunteer
             <div><label className="field-label">Téléphone</label><input className="field" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} /></div>
             <div><label className="field-label">Ville</label><input className="field" value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} /></div>
             <div><label className="field-label">Disponibilités</label><input className="field" value={form.availability} onChange={(e) => setForm({ ...form, availability: e.target.value })} /></div>
+            <div><label className="field-label">Nombre d'accompagnateurs</label><input className="field" type="number" min="0" value={form.companions} onChange={(e) => setForm({ ...form, companions: e.target.value })} placeholder="0" /></div>
             <div><label className="field-label">Compétences (virgules)</label><input className="field" value={form.skills} onChange={(e) => setForm({ ...form, skills: e.target.value })} /></div>
             <div>
               <label className="field-label">Statut</label>

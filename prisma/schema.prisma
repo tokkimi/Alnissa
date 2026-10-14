@@ -126,6 +126,7 @@ model Volunteer {
   phone        String?
   city         String?
   availability String?
+  companions   Int      @default(0) // nombre d'accompagnateurs
   skills       String   @default("")
   motivation   String?
   status       String   @default("NEW") // NEW | CONTACTED | ACTIVE | INACTIVE
