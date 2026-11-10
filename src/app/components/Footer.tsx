@@ -149,6 +149,7 @@ export default function Footer({ content }: { content: SiteContent }) {
           </p>
         </div>
       </div>
+      <p style={{ fontSize: "9px", opacity: 0.5, textAlign: "center", margin: 0, padding: "0 0 8px" }}>Made by Alexia Naudy</p>
     </footer>
   );
 }

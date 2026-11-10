@@ -18,7 +18,7 @@ const poppins = Poppins({
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = { creator: "Alexia Naudy",
   metadataBase: new URL(siteUrl),
   title: {
     default: "Association Al Nissa — Solidarité · Partage · Humanité",
